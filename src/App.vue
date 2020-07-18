@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div class="flex items-center justify-center h-1/1">
         <CompoundInterestCalculator />
     </div>
 </template>

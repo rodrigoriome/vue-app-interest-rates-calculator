@@ -1,30 +1,42 @@
 <template>
-    <div class="grid grid-cols-2 col-gap-16 p-16">
-        <div>
-            <div class="mb-12">
-                <FormLabel>{{ $t("compoundInterest.form.initial") }}</FormLabel>
+    <div class="flex w-1/1 rounded-16 shadow-lg" style="max-width: 1200px;">
+        <div class="p-16 lg:p-64 rounded-l-16 flex-none">
+            <div class="mb-32">
+                <FormLabel for="initial_deposit">
+                    {{ $t("compoundInterest.form.initial") }}
+                </FormLabel>
                 <FormGroup>
-                    <span slot="prepend">R$</span>
-                    <FormInput v-model="initialDeposit" @input="calculate" />
+                    <span slot="prepend">
+                        <IconCash />
+                    </span>
+                    <FormInput
+                        class="w-1/1"
+                        id="initial_deposit"
+                        v-model="initialDeposit"
+                        @input="calculate"
+                    />
                 </FormGroup>
             </div>
 
-            <div class="mb-12">
+            <div class="mb-32">
                 <FormLabel>{{ $t("compoundInterest.form.monthly") }}</FormLabel>
                 <FormGroup>
-                    <span slot="prepend">R$</span>
-                    <FormInput v-model="monthlyDeposit" @input="calculate" />
+                    <span slot="prepend">
+                        <IconCash />
+                    </span>
+                    <FormInput class="w-1/1" v-model="monthlyDeposit" @input="calculate" />
                 </FormGroup>
             </div>
 
-            <div class="mb-12">
+            <div class="mb-32">
                 <FormLabel>{{ $t("compoundInterest.form.rate") }}</FormLabel>
                 <FormGroup>
-                    <span slot="prepend">%</span>
-                    <FormInput v-model="interestRate" @input="calculate" />
+                    <span slot="prepend">
+                        <IconPercent />
+                    </span>
+                    <FormInput class="w-1/1" v-model="interestRate" @input="calculate" />
                     <FormSelect
                         v-model="interestFrequency"
-                        class="border-l border-gray-300 text-gray-500"
                         :options="[
                             { value: 'M', label: $t('frequency.month') },
                             { value: 'Y', label: $t('frequency.year') },
@@ -34,27 +46,36 @@
                 </FormGroup>
             </div>
 
-            <div class="mb-12">
+            <div class="mb-32">
                 <FormLabel>{{ $t("compoundInterest.form.period") }}</FormLabel>
                 <FormGroup>
-                    <FormInput v-model="periodValue" class="flex-1" @input="calculate" />
+                    <span slot="prepend">
+                        <IconCalendar />
+                    </span>
+                    <FormInput v-model="periodValue" class="w-1/1" @input="calculate" />
                     <FormSelect
                         v-model="periodType"
-                        class="border-l border-gray-300 text-gray-500"
                         :options="[
                             { value: 'M', label: $t('date.months') },
                             { value: 'Y', label: $t('date.years') },
                         ]"
+                        @input="calculate"
                     />
                 </FormGroup>
             </div>
         </div>
-        <div>
-            <div class="mt-12">
-                <p>{{ $t("compoundInterest.result.balance") }}: {{ balanceResult }}</p>
-                <p>{{ $t("compoundInterest.result.deposit") }}: {{ depositResult }}</p>
-                <p>{{ $t("compoundInterest.result.interest") }}: {{ interestResult }}</p>
-            </div>
+        <div class="[ result ] p-16 lg:p-64 text-white flex-1 rounded-r-16 overflow-auto">
+            <p class="lg:text-24">{{ $t("compoundInterest.result.balance") }}</p>
+            <p class="lg:text-64 text-blue font-black mb-12 truncate">
+                <span>R$ {{ balanceResult }}</span>
+            </p>
+            <hr class="opacity-25 mb-32" />
+            <p class="lg:text-24 opacity-50 mb-12">
+                {{ $t("compoundInterest.result.deposit") }}: {{ depositResult }}
+            </p>
+            <p class="lg:text-24 opacity-50 mb-32">
+                {{ $t("compoundInterest.result.interest") }}: {{ interestResult }}
+            </p>
             <div>
                 <canvas ref="chartCanvas" height="1" width="3" />
             </div>
@@ -71,6 +92,9 @@ import FormLabel from "../Form/Label";
 import FormInput from "../Form/Input";
 import FormSelect from "../Form/Select";
 import FormGroup from "../Form/FormGroup";
+import IconCash from "../../icons/Cash";
+import IconCalendar from "../../icons/Calendar";
+import IconPercent from "../../icons/Percent";
 
 const PeriodTypes = {
     MONTH: "M",
@@ -89,6 +113,9 @@ export default {
         FormInput,
         FormSelect,
         FormGroup,
+        IconCash,
+        IconCalendar,
+        IconPercent,
     },
 
     data() {
@@ -243,3 +270,9 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.result {
+    background-image: linear-gradient(theme("colors.blue.dark"), theme("colors.blue.darker"));
+}
+</style>

@@ -7,6 +7,6 @@ import pt from "../locale/pt";
 Vue.use(VueI18n);
 
 export default new VueI18n({
-    locale: "pt",
+    locale: "en",
     messages: { en, pt },
 });
