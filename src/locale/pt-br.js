@@ -22,4 +22,9 @@ export default {
         month: "ao mês",
         year: "ao ano",
     },
+    currency: {
+        symbol: "R$",
+        decimal: ",",
+        thousands: ".",
+    },
 };

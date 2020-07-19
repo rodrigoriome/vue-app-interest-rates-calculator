@@ -13,28 +13,44 @@
                         class="w-1/1"
                         id="initial_deposit"
                         v-model="initialDeposit"
+                        :money="true"
                         @input="calculate"
                     />
                 </FormGroup>
             </div>
 
             <div class="mb-32">
-                <FormLabel>{{ $t("compoundInterest.form.monthly") }}</FormLabel>
+                <FormLabel for="monthly_deposit">
+                    {{ $t("compoundInterest.form.monthly") }}
+                </FormLabel>
                 <FormGroup>
                     <span slot="prepend">
                         <IconCash />
                     </span>
-                    <FormInput class="w-1/1" v-model="monthlyDeposit" @input="calculate" />
+                    <FormInput
+                        class="w-1/1"
+                        id="monthly_deposit"
+                        v-model="monthlyDeposit"
+                        :money="true"
+                        @input="calculate"
+                    />
                 </FormGroup>
             </div>
 
             <div class="mb-32">
-                <FormLabel>{{ $t("compoundInterest.form.rate") }}</FormLabel>
+                <FormLabel for="interest_frequency">
+                    {{ $t("compoundInterest.form.rate") }}
+                </FormLabel>
                 <FormGroup>
                     <span slot="prepend">
                         <IconPercent />
                     </span>
-                    <FormInput class="w-1/1" v-model="interestRate" @input="calculate" />
+                    <FormInput
+                        id="interest_frequency"
+                        class="w-1/1"
+                        v-model="interestRate"
+                        @input="calculate"
+                    />
                     <FormSelect
                         v-model="interestFrequency"
                         :options="[
@@ -47,12 +63,12 @@
             </div>
 
             <div class="mb-32">
-                <FormLabel>{{ $t("compoundInterest.form.period") }}</FormLabel>
+                <FormLabel for="period">{{ $t("compoundInterest.form.period") }}</FormLabel>
                 <FormGroup>
                     <span slot="prepend">
                         <IconCalendar />
                     </span>
-                    <FormInput v-model="periodValue" class="w-1/1" @input="calculate" />
+                    <FormInput id="period" v-model="periodValue" class="w-1/1" @input="calculate" />
                     <FormSelect
                         v-model="periodType"
                         :options="[
@@ -63,18 +79,21 @@
                     />
                 </FormGroup>
             </div>
+            <LocaleSwitcher />
         </div>
         <div class="[ result ] p-16 lg:p-64 text-white flex-1 rounded-r-16 overflow-auto">
             <p class="lg:text-24">{{ $t("compoundInterest.result.balance") }}</p>
             <p class="lg:text-64 text-blue font-black mb-12 truncate">
-                <span>R$ {{ balanceResult }}</span>
+                <span>{{ $t("currency.symbol") }} {{ balanceResult | currency }}</span>
             </p>
             <hr class="opacity-25 mb-32" />
             <p class="lg:text-24 opacity-50 mb-12">
-                {{ $t("compoundInterest.result.deposit") }}: {{ depositResult }}
+                {{ $t("compoundInterest.result.deposit") }}: {{ $t("currency.symbol") }}
+                {{ depositResult | currency }}
             </p>
             <p class="lg:text-24 opacity-50 mb-32">
-                {{ $t("compoundInterest.result.interest") }}: {{ interestResult }}
+                {{ $t("compoundInterest.result.interest") }}: {{ $t("currency.symbol") }}
+                {{ interestResult | currency }}
             </p>
             <div>
                 <canvas ref="chartCanvas" height="1" width="3" />
@@ -92,9 +111,13 @@ import FormLabel from "../Form/Label";
 import FormInput from "../Form/Input";
 import FormSelect from "../Form/Select";
 import FormGroup from "../Form/FormGroup";
+import LocaleSwitcher from "../LocaleSwitcher";
+
 import IconCash from "../../icons/Cash";
 import IconCalendar from "../../icons/Calendar";
 import IconPercent from "../../icons/Percent";
+
+import CurrencyFilter from "../../filters/Currency";
 
 const PeriodTypes = {
     MONTH: "M",
@@ -116,6 +139,7 @@ export default {
         IconCash,
         IconCalendar,
         IconPercent,
+        LocaleSwitcher,
     },
 
     data() {
@@ -152,6 +176,10 @@ export default {
                 data: [],
             },
         };
+    },
+
+    filters: {
+        currency: CurrencyFilter,
     },
 
     computed: {

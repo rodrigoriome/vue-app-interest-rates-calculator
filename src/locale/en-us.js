@@ -22,4 +22,9 @@ export default {
         month: "a month",
         year: "a year",
     },
+    currency: {
+        symbol: "$",
+        decimal: ".",
+        thousands: ",",
+    },
 };
