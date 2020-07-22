@@ -15,12 +15,13 @@
 </template>
 
 <script>
-import { format, unformat } from "../../helpers/Currency";
+import CurrencyFormatter from "../../helpers/Formatters/CurrencyFormatter";
+import PercentFormatter from "../../helpers/Formatters/PercentFormatter";
 
 export default {
     props: {
         value: [String, Number],
-        money: Boolean,
+        format: [String],
     },
 
     data() {
@@ -30,17 +31,31 @@ export default {
         };
     },
 
+    computed: {
+        formatter() {
+            switch (this.format) {
+                case "currency":
+                    return CurrencyFormatter;
+
+                case "percent":
+                    return PercentFormatter;
+            }
+
+            return null;
+        },
+    },
+
     watch: {
         value: {
             immediate: true,
             handler(newValue) {
-                if (!this.money) {
+                if (!this.formatter) {
                     this.formattedValue = newValue || "";
 
                     return;
                 }
 
-                const formatted = format(newValue);
+                const formatted = this.formatter.format(newValue);
 
                 if (formatted !== this.formattedValue) {
                     this.formattedValue = formatted;
@@ -61,7 +76,10 @@ export default {
         },
 
         handleInput(event) {
-            this.$emit("input", this.money ? unformat(event.target.value) : event.target.value);
+            this.$emit(
+                "input",
+                this.money ? CurrencyFormatter.unformat(event.target.value) : event.target.value,
+            );
         },
     },
 };

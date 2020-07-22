@@ -1,6 +1,6 @@
 <template>
-    <div class="flex w-1/1 rounded-16 shadow-lg" style="max-width: 1200px;">
-        <div class="p-16 lg:p-64 rounded-l-16 flex-none">
+    <div class="lg:flex w-1/1 lg:rounded-16 shadow-lg" style="max-width: 1200px;">
+        <div class="p-16 lg:p-64 lg:rounded-l-16 flex-none">
             <div class="mb-32">
                 <FormLabel for="initial_deposit">
                     {{ $t("compoundInterest.form.initial") }}
@@ -13,7 +13,7 @@
                         class="w-1/1"
                         id="initial_deposit"
                         v-model="initialDeposit"
-                        :money="true"
+                        format="currency"
                         @input="calculate"
                     />
                 </FormGroup>
@@ -31,7 +31,7 @@
                         class="w-1/1"
                         id="monthly_deposit"
                         v-model="monthlyDeposit"
-                        :money="true"
+                        format="currency"
                         @input="calculate"
                     />
                 </FormGroup>
@@ -48,6 +48,7 @@
                     <FormInput
                         id="interest_frequency"
                         class="w-1/1"
+                        format="percent"
                         v-model="interestRate"
                         @input="calculate"
                     />
@@ -81,7 +82,7 @@
             </div>
             <LocaleSwitcher />
         </div>
-        <div class="[ result ] p-16 lg:p-64 text-white flex-1 rounded-r-16 overflow-auto">
+        <div class="[ result ] p-16 lg:p-64 text-white flex-1 lg:rounded-r-16 overflow-auto">
             <p class="lg:text-24">{{ $t("compoundInterest.result.balance") }}</p>
             <p class="lg:text-64 text-blue font-black mb-12 truncate">
                 <span>{{ $t("currency.symbol") }} {{ balanceResult | currency }}</span>

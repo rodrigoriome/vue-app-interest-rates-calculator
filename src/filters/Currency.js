@@ -1,4 +1,4 @@
-import { format } from "../helpers/Currency";
+import { format } from "../helpers/Formatters/CurrencyFormatter";
 
 const CurrencyFilter = value => format(value || 0);
 
