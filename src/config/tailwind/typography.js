@@ -2,6 +2,7 @@ const { rem } = require("./_util");
 
 module.exports = {
     fontFamily: {
+        base: ["Roboto", "Arial", "sans-serif"],
         sans: ["Maax", "Roboto", "Arial", "sans-serif"],
     },
     fontSize: {

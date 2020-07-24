@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center justify-center h-1/1">
+    <div>
         <CompoundInterestCalculator />
     </div>
 </template>
@@ -13,3 +13,10 @@ export default {
     },
 };
 </script>
+
+<style>
+input,
+select {
+    font-family: sans-serif;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
     <select
         :value="value"
-        class="[ form-select ] relative block bg-transparent h-48 pl-10 pr-32 border outline-none"
+        class="[ form-select ] relative block bg-transparent h-48 pl-10 pr-32 font-base border outline-none"
         :class="[
             active
                 ? 'text-blue-dark border-blue shadow-input z-10'

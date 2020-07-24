@@ -1,7 +1,7 @@
 <template>
     <input
         type="text"
-        class="[ form-input ] relative block bg-transparent h-48 px-10 border outline-none"
+        class="[ form-input ] relative block bg-transparent h-48 px-10 font-base border outline-none"
         :value="formattedValue"
         :class="[
             active
