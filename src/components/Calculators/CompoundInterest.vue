@@ -222,6 +222,7 @@ export default {
 
     mounted() {
         const ctx = this.$refs.chartCanvas.getContext("2d");
+        const opaqueWhite = "rgba(255, 255, 255, 0.5)";
 
         this.chartInstance = new Chart(ctx, {
             type: "line",
@@ -230,12 +231,23 @@ export default {
                 datasets: [],
             },
             options: {
+                legend: {
+                    labels: { fontColor: opaqueWhite },
+                },
                 scales: {
+                    xAxes: [
+                        {
+                            ticks: { fontColor: opaqueWhite },
+                            gridLines: { color: opaqueWhite },
+                        },
+                    ],
                     yAxes: [
                         {
                             ticks: {
                                 beginAtZero: true,
+                                fontColor: opaqueWhite,
                             },
+                            gridLines: { color: opaqueWhite },
                         },
                     ],
                 },
