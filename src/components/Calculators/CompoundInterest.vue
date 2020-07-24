@@ -104,6 +104,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import currency from "currency.js";
 import _ from "lodash";
 import { Chart } from "chart.js";
@@ -184,6 +185,8 @@ export default {
     },
 
     computed: {
+        ...mapState(["locale"]),
+
         periodInMonths() {
             if (this.periodType === PeriodTypes.YEAR) {
                 return this.periodValue * 12;
@@ -240,6 +243,15 @@ export default {
         });
 
         this.calculate();
+    },
+
+    watch: {
+        locale() {
+            this.balanceDataset.label = this.$t("compoundInterest.result.balance");
+            this.depositDataset.label = this.$t("compoundInterest.result.deposit");
+            this.interestDataset.label = this.$t("compoundInterest.result.interest");
+            this.updateChart();
+        },
     },
 
     methods: {
