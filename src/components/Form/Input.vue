@@ -76,10 +76,11 @@ export default {
         },
 
         handleInput(event) {
-            this.$emit(
-                "input",
-                this.money ? CurrencyFormatter.unformat(event.target.value) : event.target.value,
-            );
+            if (this.formatter) {
+                this.$emit("input", this.formatter.unformat(event.target.value));
+            } else {
+                this.$emit("input", event.target.value);
+            }
         },
     },
 };
