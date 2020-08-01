@@ -222,7 +222,10 @@ export default {
 
         shouldComponentUpdate() {
             return (
-                this.initialDeposit && this.monthlyDeposit && this.interestRate && this.periodValue
+                this.initialDeposit !== undefined &&
+                this.monthlyDeposit !== undefined &&
+                this.interestRate !== undefined &&
+                this.periodValue !== undefined
             );
         },
 
