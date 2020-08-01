@@ -111,7 +111,7 @@
             </div>
             <hr class="border-primary-gray mb-32" />
             <div>
-                <canvas ref="chartCanvas" height="1" :width="getScreenWidth() > 480 ? 3 : 1" />
+                <canvas ref="chartCanvas" height="1" :width="isMobile ? 3 : 1" />
             </div>
         </div>
     </div>
@@ -233,6 +233,10 @@ export default {
 
             return ChartInterval.EVERY_1_MONTH;
         },
+
+        isMobile() {
+            return window.innerWidth > 480;
+        },
     },
 
     mounted() {
@@ -336,10 +340,6 @@ export default {
             ];
 
             this.chartInstance.update();
-        },
-
-        getScreenWidth() {
-            return window.innerWidth;
         },
     },
 };
