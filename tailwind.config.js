@@ -1,4 +1,5 @@
 module.exports = {
+    purge: ["./public/**/*.html", "./src/**/*.vue"],
     theme: {
         ...require("./src/config/tailwind/spacing"),
         ...require("./src/config/tailwind/typography"),
