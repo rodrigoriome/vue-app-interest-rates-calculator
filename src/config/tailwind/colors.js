@@ -1,30 +1,14 @@
-const { keyword } = require("./_util");
-
 module.exports = {
     colors: {
-        ...keyword("transparent"),
-        ...keyword("black"),
-        ...keyword("white"),
-
-        blue: {
-            darker: "#010E28",
-            dark: "#010E3C",
-            default: "#015FFF",
-            light: "#BFD7FF",
-            lighter: "#F2F8FF",
+        primary: {
+            default: "#1DA1F2",
+            dark: "#15202B",
+            gray: "#8899A6",
         },
 
-        gray: {
-            50: "#FAFAFA",
-            100: "#F5F5F5",
-            200: "#EEEEEE",
-            300: "#E0E0E0",
-            400: "#BDBDBD",
-            500: "#9E9E9E",
-            600: "#757575",
-            700: "#616161",
-            800: "#424242",
-            900: "#212121",
-        },
+        yellow: "#FFAD1F",
+        purple: "#794BC4",
+        orange: "#F45D22",
+        green: "#17BF63",
     },
 };

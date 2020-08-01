@@ -1,12 +1,12 @@
 <template>
     <input
         type="text"
-        class="[ form-input ] relative block bg-transparent h-48 px-10 font-base border outline-none"
+        class="[ form-input ] relative block bg-transparent h-48 px-10 font-base border-b outline-none"
         :value="formattedValue"
         :class="[
             active
-                ? 'text-blue-dark border-blue shadow-input z-10'
-                : 'text-gray-700 border-gray-300 hover:border-gray-500 hover:z-10',
+                ? 'text-gray-800 border-primary'
+                : 'text-gray-600 border-gray-300 hover:border-gray-400',
         ]"
         @input="handleInput"
         @focus="handleFocus"

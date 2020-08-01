@@ -1,11 +1,11 @@
 <template>
     <select
         :value="value"
-        class="[ form-select ] relative block bg-transparent h-48 pl-10 pr-32 font-base border outline-none"
+        class="[ form-select ] relative block bg-transparent h-48 pl-16 pr-32 font-base border-b outline-none"
         :class="[
             active
-                ? 'text-blue-dark border-blue shadow-input z-10'
-                : 'text-gray-700 border-gray-300 hover:border-gray-500 hover:z-10',
+                ? 'text-gray-800 border-primary'
+                : 'text-gray-600 border-gray-300 hover:border-gray-400',
         ]"
         @input="$emit('input', $event.target.value)"
         @focus="handleFocus"

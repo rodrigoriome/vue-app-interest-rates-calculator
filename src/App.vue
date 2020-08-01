@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container mx-auto lg:py-64">
         <CompoundInterestCalculator />
     </div>
 </template>
@@ -13,10 +13,3 @@ export default {
     },
 };
 </script>
-
-<style>
-input,
-select {
-    font-family: sans-serif;
-}
-</style>

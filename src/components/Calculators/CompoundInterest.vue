@@ -1,6 +1,6 @@
 <template>
-    <div class="lg:flex w-1/1 lg:rounded-16 shadow-lg" style="max-width: 1200px;">
-        <div class="p-16 lg:p-64 lg:rounded-l-16 flex-none">
+    <div class="lg:flex w-1/1 shadow-lg">
+        <div class="flex flex-col p-32 lg:p-64 lg:w-1/3 flex-none">
             <div class="mb-32">
                 <FormLabel for="initial_deposit">
                     {{ $t("compoundInterest.form.initial") }}
@@ -80,24 +80,38 @@
                     />
                 </FormGroup>
             </div>
-            <LocaleSwitcher />
+            <LocaleSwitcher class="mt-auto" />
         </div>
-        <div class="[ result ] p-16 lg:p-64 text-white flex-1 lg:rounded-r-16 overflow-auto">
-            <p class="lg:text-24">{{ $t("compoundInterest.result.balance") }}</p>
-            <p class="lg:text-64 text-blue font-black mb-12 truncate">
-                <span>{{ $t("currency.symbol") }} {{ balanceResult | currency }}</span>
-            </p>
-            <hr class="opacity-25 mb-32" />
-            <p class="lg:text-24 opacity-50 mb-12">
-                {{ $t("compoundInterest.result.deposit") }}: {{ $t("currency.symbol") }}
-                {{ depositResult | currency }}
-            </p>
-            <p class="lg:text-24 opacity-50 mb-32">
-                {{ $t("compoundInterest.result.interest") }}: {{ $t("currency.symbol") }}
-                {{ interestResult | currency }}
-            </p>
+        <div class="p-32 lg:p-64 bg-primary-dark text-white flex-1 overflow-auto">
+            <div class="mb-16">
+                <p class="text-primary-gray uppercase tracking-wider">
+                    {{ $t("compoundInterest.result.balance") }}
+                </p>
+                <p class="text-32 lg:text-64 text-white font-black truncate">
+                    <span>{{ $t("currency.symbol") }} {{ balanceResult | currency }}</span>
+                </p>
+            </div>
+            <div class="lg:flex mb-32">
+                <div class="mb-24">
+                    <p class="text-primary-gray uppercase tracking-wider">
+                        {{ $t("compoundInterest.result.deposit") }}
+                    </p>
+                    <p class="text-20">
+                        {{ $t("currency.symbol") }} {{ depositResult | currency }}
+                    </p>
+                </div>
+                <div class="lg:ml-48">
+                    <p class="text-primary-gray uppercase tracking-wider">
+                        {{ $t("compoundInterest.result.interest") }}
+                    </p>
+                    <p class="text-20">
+                        {{ $t("currency.symbol") }} {{ interestResult | currency }}
+                    </p>
+                </div>
+            </div>
+            <hr class="border-primary-gray mb-32" />
             <div>
-                <canvas ref="chartCanvas" height="1" width="3" />
+                <canvas ref="chartCanvas" height="1" :width="getScreenWidth() > 480 ? 3 : 1" />
             </div>
         </div>
     </div>
@@ -120,6 +134,7 @@ import IconCalendar from "../../icons/Calendar";
 import IconPercent from "../../icons/Percent";
 
 import CurrencyFilter from "../../filters/Currency";
+import theme from "../../tailwind-resolve";
 
 const PeriodTypes = {
     MONTH: "M",
@@ -159,21 +174,21 @@ export default {
             balanceResult: null,
             balanceDataset: {
                 label: this.$t("compoundInterest.result.balance"),
-                borderColor: "rgb(54, 179, 126)",
+                borderColor: theme.colors.primary.default,
                 backgroundColor: "rgba(0, 0, 0, 0)",
                 data: [],
             },
             depositResult: null,
             depositDataset: {
                 label: this.$t("compoundInterest.result.deposit"),
-                borderColor: "rgb(101, 84, 192)",
+                borderColor: theme.colors.green,
                 backgroundColor: "rgba(0, 0, 0, 0)",
                 data: [],
             },
             interestResult: null,
             interestDataset: {
                 label: this.$t("compoundInterest.result.interest"),
-                borderColor: "rgb(255, 196, 0)",
+                borderColor: theme.colors.yellow,
                 backgroundColor: "rgba(0, 0, 0, 0)",
                 data: [],
             },
@@ -222,7 +237,7 @@ export default {
 
     mounted() {
         const ctx = this.$refs.chartCanvas.getContext("2d");
-        const opaqueWhite = "rgba(255, 255, 255, 0.5)";
+        const opaqueWhite = "rgba(255, 255, 255, 0.4)";
 
         this.chartInstance = new Chart(ctx, {
             type: "line",
@@ -233,6 +248,8 @@ export default {
             options: {
                 legend: {
                     labels: { fontColor: opaqueWhite },
+                    fullWidth: false,
+                    align: "start",
                 },
                 scales: {
                     xAxes: [
@@ -320,12 +337,10 @@ export default {
 
             this.chartInstance.update();
         },
+
+        getScreenWidth() {
+            return window.innerWidth;
+        },
     },
 };
 </script>
-
-<style scoped>
-.result {
-    background-image: linear-gradient(theme("colors.blue.dark"), theme("colors.blue.darker"));
-}
-</style>

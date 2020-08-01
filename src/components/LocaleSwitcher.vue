@@ -1,13 +1,13 @@
 <template>
     <div class="flex items-center">
-        <div class="text-gray-800 mr-16">
+        <div class="text-gray-500 mr-16">
             <IconTranslation />
         </div>
         <div
             v-for="(locale, idx) in availableLocales"
             :class="[
                 'cursor-pointer text-14 font-medium leading-none mr-8',
-                locale === currentLocale ? 'text-gray-800' : 'text-gray-400',
+                locale === currentLocale ? 'text-primary' : 'text-gray-400',
             ]"
             :key="idx"
             @click="setLocale(locale)"

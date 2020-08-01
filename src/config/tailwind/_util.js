@@ -1,9 +1,3 @@
-function keyword(value) {
-    return {
-        [value]: value,
-    };
-}
-
 function rem(value) {
     return {
         [value]: `${value / 16}rem`,
@@ -29,5 +23,4 @@ function fraction(factor = 12) {
 module.exports = {
     rem,
     fraction,
-    keyword,
 };
